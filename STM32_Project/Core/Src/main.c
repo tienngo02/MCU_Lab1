@@ -49,7 +49,29 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
+void display7SEG(int num){
+	if(num==1 || num==4) HAL_GPIO_WritePin (SEG7_A_GPIO_Port, SEG7_A_Pin, SET);
+	else HAL_GPIO_WritePin (SEG7_A_GPIO_Port, SEG7_A_Pin, RESET);
 
+	if(num==5 || num==6) HAL_GPIO_WritePin (SEG7_B_GPIO_Port, SEG7_B_Pin, SET);
+	else HAL_GPIO_WritePin (SEG7_B_GPIO_Port, SEG7_B_Pin, RESET);
+
+	if(num==2) HAL_GPIO_WritePin (SEG7_C_GPIO_Port, SEG7_C_Pin, SET);
+	else HAL_GPIO_WritePin (SEG7_C_GPIO_Port, SEG7_C_Pin, RESET);
+
+	if(num==1 || num==4 || num==7) HAL_GPIO_WritePin (SEG7_D_GPIO_Port, SEG7_D_Pin, SET);
+	else HAL_GPIO_WritePin (SEG7_D_GPIO_Port, SEG7_D_Pin, RESET);
+
+	if(num==1 || num==3 || num==4 || num==5 || num==7 || num==9) HAL_GPIO_WritePin (SEG7_E_GPIO_Port, SEG7_E_Pin, SET);
+	else HAL_GPIO_WritePin (SEG7_E_GPIO_Port, SEG7_E_Pin, RESET);
+
+	if(num==1 || num==2 || num==3 || num==7) HAL_GPIO_WritePin (SEG7_F_GPIO_Port, SEG7_F_Pin, SET);
+	else HAL_GPIO_WritePin (SEG7_F_GPIO_Port, SEG7_F_Pin, RESET);
+
+	if(num==0 || num==1 || num==7) HAL_GPIO_WritePin (SEG7_G_GPIO_Port, SEG7_G_Pin, SET);
+	else HAL_GPIO_WritePin (SEG7_G_GPIO_Port, SEG7_G_Pin, RESET);
+
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -131,6 +153,9 @@ int main(void)
 
 		  sec = 0;
 	  }
+
+	  display7SEG(sec);
+
 	  sec++;
 
 	  HAL_Delay (1000) ;
@@ -187,10 +212,15 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin|LED_RED2_Pin
                           |LED_YELLOW2_Pin|LED_GREEN2_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, SEG7_A_Pin|SEG7_B_Pin|SEG7_C_Pin|SEG7_D_Pin
+                          |SEG7_E_Pin|SEG7_F_Pin|SEG7_G_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin LED_GREEN_Pin LED_RED2_Pin
                            LED_YELLOW2_Pin LED_GREEN2_Pin */
@@ -200,6 +230,15 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : SEG7_A_Pin SEG7_B_Pin SEG7_C_Pin SEG7_D_Pin
+                           SEG7_E_Pin SEG7_F_Pin SEG7_G_Pin */
+  GPIO_InitStruct.Pin = SEG7_A_Pin|SEG7_B_Pin|SEG7_C_Pin|SEG7_D_Pin
+                          |SEG7_E_Pin|SEG7_F_Pin|SEG7_G_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
 
