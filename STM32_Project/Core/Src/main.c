@@ -49,7 +49,20 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-
+void clearAllClock(){
+	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, SET);
+	  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, SET);
+	  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, SET);
+	  HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, SET);
+	  HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, SET);
+	  HAL_GPIO_WritePin(LED5_GPIO_Port, LED5_Pin, SET);
+	  HAL_GPIO_WritePin(LED6_GPIO_Port, LED6_Pin, SET);
+	  HAL_GPIO_WritePin(LED7_GPIO_Port, LED7_Pin, SET);
+	  HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin, SET);
+	  HAL_GPIO_WritePin(LED9_GPIO_Port, LED9_Pin, SET);
+	  HAL_GPIO_WritePin(LED10_GPIO_Port, LED10_Pin, SET);
+	  HAL_GPIO_WritePin(LED11_GPIO_Port, LED11_Pin, SET);
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -107,6 +120,11 @@ int main(void)
   int sec = 0;
   while (1)
   {
+	  if(sec>11){
+		  clearAllClock();
+		  sec = 0;
+	  }
+
 	  if(sec==0) HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, RESET);
 	  else if(sec==1) HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, RESET);
 	  else if(sec==2) HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, RESET);
@@ -118,10 +136,7 @@ int main(void)
 	  else if(sec==8) HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin, RESET);
 	  else if(sec==9) HAL_GPIO_WritePin(LED9_GPIO_Port, LED9_Pin, RESET);
 	  else if(sec==10) HAL_GPIO_WritePin(LED10_GPIO_Port, LED10_Pin, RESET);
-	  else if(sec>=11) {
-		  HAL_GPIO_WritePin(LED11_GPIO_Port, LED11_Pin, RESET);
-		  sec = 0;
-	  }
+	  else if(sec>=11) HAL_GPIO_WritePin(LED11_GPIO_Port, LED11_Pin, RESET);
 	  sec++;
 	  HAL_Delay(1000);
     /* USER CODE END WHILE */
