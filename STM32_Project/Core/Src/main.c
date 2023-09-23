@@ -134,29 +134,25 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, SET);
-  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, SET);
-  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, SET);
-  HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, SET);
-  HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, SET);
-  HAL_GPIO_WritePin(LED5_GPIO_Port, LED5_Pin, SET);
-  HAL_GPIO_WritePin(LED6_GPIO_Port, LED6_Pin, SET);
-  HAL_GPIO_WritePin(LED7_GPIO_Port, LED7_Pin, SET);
-  HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin, SET);
-  HAL_GPIO_WritePin(LED9_GPIO_Port, LED9_Pin, SET);
-  HAL_GPIO_WritePin(LED10_GPIO_Port, LED10_Pin, SET);
-  HAL_GPIO_WritePin(LED11_GPIO_Port, LED11_Pin, SET);
-
   int sec = 0;
+  int min = 0;
+  int hour = 0;
   while (1)
   {
-	  if(sec>11){
-		  clearAllClock();
+	  clearAllClock();
+	  if(sec>=60){
 		  sec = 0;
+		  min++;
 	  }
+	  if(min>=60){
+		  min = 0;
+		  hour++;
+	  }
+	  if(hour>=12) hour = 0;
 
-	  setNumberOnClock(sec);
-	  clearNumberOnClock(sec-1);
+	  setNumberOnClock(sec/5);
+	  setNumberOnClock(min/5);
+	  setNumberOnClock(hour);
 
 	  sec++;
 	  HAL_Delay(1000);
