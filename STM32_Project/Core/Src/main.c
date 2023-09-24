@@ -154,7 +154,7 @@ int main(void)
 		  sec = 0;
 	  }
 
-	  display7SEG(sec);
+	  display7SEG(9-sec);
 
 	  sec++;
 
